@@ -18,6 +18,20 @@
 - **分类管理**：帖子分类CRUD（管理员）
 - **个人中心**：个人信息查看与编辑
 
+## 界面预览
+
+| 首页帖子列表 | 帖子详情与评论 |
+|:---:|:---:|
+| ![首页](screenshots/homepage.png) | ![帖子详情](screenshots/post-detail.png) |
+
+| 发布/编辑帖子 | 个人中心 |
+|:---:|:---:|
+| ![发布帖子](screenshots/post-editor.png) | ![个人中心](screenshots/profile.png) |
+
+| 分类管理（管理员） |
+|:---:|
+| ![分类管理](screenshots/categories.png) |
+
 ## 快速开始
 
 ### 环境要求
