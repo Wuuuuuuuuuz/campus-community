@@ -5,7 +5,7 @@ import router from '../router'
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(JSON.parse(localStorage.getItem('user') || 'null'))
-  const isLoggedIn = computed(() => !!localStorage.getItem('accessToken'))
+  const isLoggedIn = computed(() => !!user.value)
   const isAdmin = computed(() => user.value?.role === 'ADMIN')
 
   async function login(username, password) {
