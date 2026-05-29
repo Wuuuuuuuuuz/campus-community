@@ -67,7 +67,7 @@ public class PostServiceImpl implements PostService {
     public PageResult<PostSummaryResponse> queryPosts(PostQueryRequest request) {
         Page<Post> page = new Page<>(request.getPage(), request.getSize());
 
-        Integer status = SecurityUtils.isAdmin() ? null : 1;
+        Integer status = 1; // Only published posts in listing
         Page<Post> postPage = postMapper.selectPostPage(
                 page, request.getKeyword(), request.getCategoryId(),
                 request.getUserId(), status, request.getSort());
