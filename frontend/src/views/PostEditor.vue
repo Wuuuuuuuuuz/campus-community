@@ -105,6 +105,12 @@ async function submit() {
 <style scoped>
 .post-editor { background: #fff; border-radius: 8px; padding: 24px; max-width: 800px; margin: 0 auto; }
 .editor-wrap { display: flex; gap: 16px; width: 100%; }
-.editor-wrap .el-textarea { flex: 1; }
-.preview-pane { flex: 1; border: 1px solid #dcdfe6; border-radius: 4px; padding: 10px; overflow-y: auto; max-height: 350px; line-height: 1.6; }
+.editor-wrap .el-textarea { flex: 1; min-width: 0; }
+.preview-pane { flex: 1; border: 1px solid #dcdfe6; border-radius: 4px; padding: 10px; overflow-y: auto; max-height: 350px; line-height: 1.6; word-break: break-word; }
+
+@media (max-width: 768px) {
+  .post-editor { padding: 16px; border-radius: 0; }
+  .editor-wrap { flex-direction: column; }
+  .preview-pane { max-height: 250px; }
+}
 </style>

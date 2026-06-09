@@ -119,14 +119,14 @@ watch(() => {
 <style scoped>
 .ai-chat-float {
   position: fixed;
-  right: 24px;
-  bottom: 24px;
+  right: 16px;
+  bottom: 16px;
   z-index: 1000;
 }
 
 .chat-bubble {
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: #409eff;
   color: #fff;
@@ -137,17 +137,19 @@ watch(() => {
   box-shadow: 0 4px 14px rgba(64, 158, 255, 0.4);
   transition: transform 0.2s;
 }
-.chat-bubble:hover { transform: scale(1.08); }
+.chat-bubble:active { transform: scale(0.95); }
 
 .chat-panel {
-  position: absolute;
+  position: fixed;
   right: 0;
-  bottom: 68px;
+  bottom: 0;
   width: 400px;
   height: 560px;
+  max-width: 100vw;
+  max-height: 85vh;
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -161,6 +163,7 @@ watch(() => {
   border-bottom: 1px solid #ebeef5;
   font-weight: 600;
   font-size: 15px;
+  flex-shrink: 0;
 }
 .chat-header-actions { display: flex; gap: 4px; }
 
@@ -169,6 +172,7 @@ watch(() => {
   overflow-y: auto;
   padding: 12px 16px;
   background: #fafafa;
+  -webkit-overflow-scrolling: touch;
 }
 .chat-empty {
   text-align: center;
@@ -254,9 +258,11 @@ watch(() => {
 .chat-input {
   padding: 10px 14px;
   border-top: 1px solid #ebeef5;
+  flex-shrink: 0;
 }
 .chat-input :deep(.el-textarea__inner) {
   border-radius: 8px;
+  font-size: 15px;
 }
 
 .panel-enter-active, .panel-leave-active {
@@ -264,6 +270,40 @@ watch(() => {
 }
 .panel-enter-from, .panel-leave-to {
   opacity: 0;
-  transform: translateY(12px) scale(0.95);
+  transform: translateY(16px);
+}
+
+/* Mobile: full-screen panel */
+@media (max-width: 480px) {
+  .ai-chat-float {
+    right: 12px;
+    bottom: 12px;
+  }
+  .chat-bubble {
+    width: 44px;
+    height: 44px;
+  }
+  .chat-panel {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+  .chat-header {
+    padding: 14px 16px;
+    font-size: 16px;
+  }
+  .chat-messages {
+    padding: 10px 12px;
+  }
+  .chat-input {
+    padding: 8px 12px 12px;
+  }
 }
 </style>

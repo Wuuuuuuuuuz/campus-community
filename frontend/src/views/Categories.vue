@@ -115,5 +115,11 @@ async function deleteRow(row) {
 
 <style scoped>
 .categories-page { background: #fff; border-radius: 8px; padding: 24px; }
-.page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 8px; }
+
+@media (max-width: 768px) {
+  .categories-page { padding: 12px; border-radius: 0; overflow-x: auto; }
+  .page-header { flex-wrap: wrap; }
+  .page-header h2 { font-size: 18px; }
+}
 </style>

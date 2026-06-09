@@ -160,13 +160,23 @@ function formatTime(t) {
 <style scoped>
 .post-detail { background: #fff; border-radius: 8px; padding: 24px; }
 .post-header { border-bottom: 1px solid #eee; padding-bottom: 16px; margin-bottom: 16px; }
-.post-header h1 { font-size: 24px; margin: 8px 0; }
-.post-info { display: flex; gap: 12px; font-size: 13px; color: #999; align-items: center; }
-.post-body { line-height: 1.8; padding: 16px 0; }
+.post-header h1 { font-size: 24px; margin: 8px 0; word-break: break-word; }
+.post-info { display: flex; gap: 10px; font-size: 13px; color: #999; align-items: center; flex-wrap: wrap; }
+.post-body { line-height: 1.8; padding: 16px 0; word-break: break-word; }
+.post-body :deep(img) { max-width: 100%; height: auto; }
+.post-body :deep(table) { display: block; overflow-x: auto; max-width: 100%; }
+.post-body :deep(pre) { max-width: 100%; overflow-x: auto; }
 .post-actions { margin: 16px 0; display: flex; gap: 10px; }
 .comments-section { margin-top: 32px; border-top: 1px solid #eee; padding-top: 20px; }
 .comments-section h3 { margin-bottom: 16px; }
 .comment-input { margin-bottom: 20px; }
 .comment-login-hint { text-align: center; color: #999; padding: 20px 0; }
-.pinned-tag { background: #f56c6c; color: #fff; font-size: 12px; padding: 2px 6px; border-radius: 3px; }
+.pinned-tag { background: #f56c6c; color: #fff; font-size: 12px; padding: 2px 6px; border-radius: 3px; flex-shrink: 0; }
+
+@media (max-width: 640px) {
+  .post-detail { padding: 16px; border-radius: 0; }
+  .post-header h1 { font-size: 20px; }
+  .post-info { gap: 6px; font-size: 12px; }
+  .post-body { font-size: 15px; }
+}
 </style>

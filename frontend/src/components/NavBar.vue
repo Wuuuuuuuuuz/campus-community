@@ -10,7 +10,7 @@
           <router-link v-if="auth.isAdmin" to="/categories">分类管理</router-link>
           <el-dropdown @command="handleCommand" style="margin-left: 12px;">
             <span class="user-info">
-              <el-avatar :size="32" :src="auth.user?.avatar" />
+              <el-avatar :size="32" :src="auth.user?.avatar || undefined" />
               <span style="margin-left: 6px;">{{ auth.user?.nickname || auth.user?.username }}</span>
             </span>
             <template #dropdown>
@@ -70,17 +70,19 @@ function handleCommand(cmd) {
   font-size: 20px;
   font-weight: 700;
   color: #409eff;
+  white-space: nowrap;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 }
 
 .nav-links a {
   color: #555;
   font-size: 15px;
+  white-space: nowrap;
 }
 
 .nav-links a:hover,
@@ -92,5 +94,18 @@ function handleCommand(cmd) {
   display: flex;
   align-items: center;
   cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .logo { font-size: 16px; }
+  .nav-links { gap: 10px; }
+  .nav-links a { font-size: 13px; }
+  .navbar-inner { padding: 0 10px; }
+}
+
+@media (max-width: 420px) {
+  .nav-links { gap: 6px; }
+  .nav-links a { font-size: 12px; }
+  .user-info span { display: none; }
 }
 </style>

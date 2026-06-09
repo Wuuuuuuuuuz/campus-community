@@ -9,6 +9,8 @@ body {
   background: #f5f7fa;
   color: #333;
   min-height: 100vh;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #app {
@@ -62,4 +64,14 @@ a {
   padding-left: 16px;
   margin: 8px 0;
   color: #666;
+}
+
+@media (max-width: 640px) {
+  .main-content {
+    padding: 12px 10px 80px;
+  }
+  .el-message {
+    min-width: auto;
+    max-width: 90vw;
+  }
 }

@@ -1,25 +1,36 @@
 import { defineStore } from 'pinia'
-import { ref, nextTick } from 'vue'
+import { ref, watch, nextTick } from 'vue'
+import { useAuthStore } from './auth'
 
 function genId() {
   return crypto.randomUUID?.() || Date.now().toString(36) + Math.random().toString(36).slice(2)
 }
 
 export const useAiStore = defineStore('ai', () => {
-  const sessionId = ref(localStorage.getItem('aiSessionId') || '')
+  const auth = useAuthStore()
+  const sessionId = ref('')
   const messages = ref([])
   const isOpen = ref(false)
   const isLoading = ref(false)
   const toolStatus = ref('')
   const context = ref(null)
+  let tempSessionId = ''
 
   let abortController = null
 
-  function init() {
-    if (!sessionId.value) {
-      sessionId.value = genId()
-      localStorage.setItem('aiSessionId', sessionId.value)
+  function resolveSessionId() {
+    if (auth.isLoggedIn) {
+      return `user-${auth.user.id}`
     }
+    if (!tempSessionId) {
+      tempSessionId = localStorage.getItem('aiSessionId') || genId()
+      localStorage.setItem('aiSessionId', tempSessionId)
+    }
+    return tempSessionId
+  }
+
+  function init() {
+    sessionId.value = resolveSessionId()
   }
 
   async function loadHistory() {
@@ -136,6 +147,17 @@ export const useAiStore = defineStore('ai', () => {
   }
 
   init()
+
+  // Switch session when user logs in or out
+  watch(() => auth.user?.id, async (newUserId, oldUserId) => {
+    if (newUserId !== oldUserId) {
+      messages.value = []
+      sessionId.value = resolveSessionId()
+      if (isOpen.value && sessionId.value) {
+        await loadHistory()
+      }
+    }
+  })
 
   return { sessionId, messages, isOpen, isLoading, toolStatus, context, toggle, setContext, send, stop, clear }
 })

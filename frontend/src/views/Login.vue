@@ -126,4 +126,14 @@ async function handleRegister() {
   width: 400px;
   max-width: 100%;
 }
+
+@media (max-width: 480px) {
+  .login-page {
+    padding: 20px 12px 0;
+  }
+  .login-card {
+    box-shadow: none;
+    border: none;
+  }
+}
 </style>
