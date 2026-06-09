@@ -48,11 +48,12 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { usePostStore } from '../stores/post'
 import { useAuthStore } from '../stores/auth'
+import { useAiStore } from '../stores/ai'
 import { marked } from 'marked'
 import CommentItem from '../components/CommentItem.vue'
 
@@ -60,6 +61,7 @@ const route = useRoute()
 const router = useRouter()
 const postStore = usePostStore()
 const auth = useAuthStore()
+const aiStore = useAiStore()
 
 const loading = ref(false)
 const post = ref(null)
@@ -82,6 +84,22 @@ onMounted(async () => {
     comments.value = commentRes.data
   } catch (e) { /* ignore */ }
   loading.value = false
+})
+
+watch(post, (p) => {
+  if (p) {
+    const plainText = p.content?.replace(/<[^>]*>/g, '').replace(/[#*`>\[\]!\-|]/g, '') || ''
+    aiStore.setContext({
+      type: 'post',
+      post_title: p.title,
+      post_summary: p.summary || plainText.slice(0, 200),
+      post_content: plainText,
+    })
+  }
+}, { immediate: true })
+
+onUnmounted(() => {
+  aiStore.setContext(null)
 })
 
 const renderedContent = computed(() => {
